@@ -7,8 +7,8 @@
 
 ;; -- Get Font Here --
 ;; https://github.com/slavfox/Cozette/releases
-(add-to-list 'default-frame-alist '(font . "CozetteHiDpi-13"))
-(add-to-list 'default-frame-alist (list '(width . 72) '(height . 72)))
+;(add-to-list 'default-frame-alist '(font . "CozetteHiDpi-13"))
+;(add-to-list 'default-frame-alist (list '(width . 72) '(height . 72)))
 
 (setq
  backup-by-copying t ; don't clobber symlinks
@@ -25,13 +25,18 @@
 (setq indent-tabs-mode nil)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-;;(global-linum-mode)
-(if (fboundp 'global-linum-mode) (global-linum-mode -1))
-;;(tool-bar-mode -1)
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-;;(scroll-bar-mode -1)
+
+(if (fboundp 'global-linum-mode)
+    (global-linum-mode -1)
+  (if (fboundp 'global-display-line-numbers-mode)
+      (global-display-line-numbers-mode 1)
+    )
+  )
+
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(menu-bar-mode -1)
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
 (show-paren-mode 1)
 (recentf-mode 1)
 
@@ -121,6 +126,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-(provide 'init)
+;(provide 'init)
 
 ;;; init.el ends here.
