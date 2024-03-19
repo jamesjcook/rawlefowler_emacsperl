@@ -44,14 +44,14 @@
 (set-exec-path-from-shell)
 
 (defconst pkgs
-  '(dracula-theme
-    flycheck
-    web-mode
+  '(flycheck
     json-mode
     yaml-mode
+    web-mode
     dockerfile-mode
-    ctrlf
     magit
+    dracula-theme
+    ctrlf
     smex))
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -81,25 +81,23 @@
 ;; (setq cperl-indent-parens-as-block t)
 ;; (setq flycheck-perlcritic-severity 3)
 
-;;(defun kill-inner-word ()
+;; (defun kill-inner-word ()
 ;;  "It's ciw from Vim."
 ;;  (interactive)
 ;;  (backward-word)
 ;;  (kill-word 1))
 
-;;(global-set-key (kbd "C-c C-c") #'kill-inner-word)
+;; (global-set-key (kbd "C-c C-c") #'kill-inner-word)
 
-
-(require 'ctrlf)
 (ctrlf-mode +1)
 ;(if (fboundp 'ctrlf-mode) (ctrlf-mode +1))
 
-;(require 'ido)
-;(ido-mode 1)
+;; (require 'ido)
+;; (ido-mode 1)
 
-;(require 'smex)
-;(smex-initialize)
-;;(global-set-key (kbd "M-x") #'smex)
+;; (require 'smex)
+;; (smex-initialize)
+;; (global-set-key (kbd "M-x") #'smex)
 
 ;(provide 'init)
 
