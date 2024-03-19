@@ -43,14 +43,6 @@
     (setq exec-path (split-string path-from-shell path-separator))))
 (set-exec-path-from-shell)
 
-; These are handled in custom init_compat.el
-;; Packages
-;(require 'package)
-
-;(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
-;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-;(package-initialize)
-
 (defconst pkgs
   '(dracula-theme
     flycheck
@@ -100,6 +92,7 @@
 
 (require 'ctrlf)
 (ctrlf-mode +1)
+;(if (fboundp 'ctrlf-mode) (ctrlf-mode +1))
 
 ;(require 'ido)
 ;(ido-mode 1)
