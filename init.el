@@ -3,7 +3,7 @@
 ;;; A Perl 5 focused Emacs configuration, for the unix genie.
 
 ;;; Code:
-(server-start)
+;(server-start)
 
 ;; -- Get Font Here --
 ;; https://github.com/slavfox/Cozette/releases
@@ -17,22 +17,17 @@
  kept-new-versions 6
  kept-old-versions 2
  version-control t)
-(setq package-enable-at-startup nil)
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 (setq shell-file-name "/bin/bash")
 (setq shell-command-switch "-ic")
-(setq indent-tabs-mode nil)
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
 
 (if (fboundp 'global-linum-mode)
-    (global-linum-mode -1)
+    (global-linum-mode 1)
   (if (fboundp 'global-display-line-numbers-mode)
       (global-display-line-numbers-mode 1)
     )
   )
-
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -48,29 +43,13 @@
     (setq exec-path (split-string path-from-shell path-separator))))
 (set-exec-path-from-shell)
 
-(add-to-list 'load-path "~/.emacs.d/extras")
-(require 'perltidy) ; Thanks to https://github.com/zakame/perltidy.el
-(require 'perl-mode)
-(require 'cperl-mode)
-(add-hook 'cperl-mode-hook
-          #'(lambda ()
-            (setq font-lock-defaults
-                  '((perl-font-lock-keywords perl-font-lock-keywords-1 perl-font-lock-keywords-2)
-                    nil nil ((?\_ . "w")) nil
-                    (font-lock-syntactic-face-function . perl-font-lock-syntactic-face-function)))
-            (font-lock-refresh-defaults)))
-(defalias 'perl-mode 'cperl-mode)
-(add-hook 'before-save-hook #'(lambda ()
-                              (when (or (eq major-mode 'perl-mode) (eq major-mode 'cperl-mode))
-                                (perltidy-buffer))))
-(setq cperl-indent-parens-as-block t)
-
+; These are handled in custom init_compat.el
 ;; Packages
-(require 'package)
+;(require 'package)
 
-(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
+;(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
+;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+;(package-initialize)
 
 (defconst pkgs
   '(dracula-theme
@@ -88,26 +67,46 @@
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
-(global-flycheck-mode)
-(setq flycheck-perlcritic-severity 3)
+; this enables flycheck globally, supposing the packge fetch above worked.
+(if (fboundp 'global-flycheck-mode) (global-flycheck-mode))
+
+;; (add-to-list 'load-path "~/.emacs.d/extras")
+;; (require 'perltidy) ; Thanks to https://github.com/zakame/perltidy.el
+;; (require 'perl-mode)
+;; (require 'cperl-mode)
+;; (add-hook 'cperl-mode-hook
+;;           #'(lambda ()
+;;             (setq font-lock-defaults
+;;                   '((perl-font-lock-keywords perl-font-lock-keywords-1 perl-font-lock-keywords-2)
+;;                     nil nil ((?\_ . "w")) nil
+;;                     (font-lock-syntactic-face-function . perl-font-lock-syntactic-face-function)))
+;;             (font-lock-refresh-defaults)))
+;; (defalias 'perl-mode 'cperl-mode)
+
+;; (add-hook 'before-save-hook #'(lambda ()
+;;                               (when (or (eq major-mode 'perl-mode) (eq major-mode 'cperl-mode))
+;;                                 (perltidy-buffer))))
+;; (setq cperl-indent-parens-as-block t)
+;; (setq flycheck-perlcritic-severity 3)
+
+;;(defun kill-inner-word ()
+;;  "It's ciw from Vim."
+;;  (interactive)
+;;  (backward-word)
+;;  (kill-word 1))
+
+;;(global-set-key (kbd "C-c C-c") #'kill-inner-word)
+
 
 (require 'ctrlf)
 (ctrlf-mode +1)
 
-(require 'ido)
-(ido-mode 1)
+;(require 'ido)
+;(ido-mode 1)
 
-(require 'smex)
-(smex-initialize)
-
-(defun kill-inner-word ()
-  "It's ciw from Vim."
-  (interactive)
-  (backward-word)
-  (kill-word 1))
-
-(global-set-key (kbd "C-c C-c") #'kill-inner-word)
-(global-set-key (kbd "M-x") #'smex)
+;(require 'smex)
+;(smex-initialize)
+;;(global-set-key (kbd "M-x") #'smex)
 
 ;(provide 'init)
 
