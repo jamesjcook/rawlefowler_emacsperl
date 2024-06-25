@@ -53,8 +53,12 @@
     dracula-theme
     ctrlf
     smex))
-(when (not package-archive-contents)
-  (package-refresh-contents))
+
+;; These two lines cause CONSTANT delays ALL THE TIME.
+;; These are ONLY EVER NEEDED on install or update.
+;; (when (not package-archive-contents)
+;;  (package-refresh-contents))
+
 (dolist (pkg pkgs)
   (unless (package-installed-p pkg)
     (package-install pkg)))
@@ -89,7 +93,9 @@
 
 ;; (global-set-key (kbd "C-c C-c") #'kill-inner-word)
 
+(require 'ctrlf)
 (ctrlf-mode +1)
+
 ;(if (fboundp 'ctrlf-mode) (ctrlf-mode +1))
 
 ;; (require 'ido)
